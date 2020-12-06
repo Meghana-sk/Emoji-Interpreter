@@ -15,6 +15,9 @@ const emojiDictionary = {
   "🤑": "Money Mouth face",
   "🤪": "zany face"
 };
+
+var emojiWeHave = Object.keys(emojiDictionary);
+
 export default function App() {
   var [emojiInput, setEmojiInput] = useState("");
 
@@ -33,11 +36,34 @@ export default function App() {
     }
   }
 
+  function onEmojiClickHandler(emoji) {
+    var meaning = emojiDictionary[emoji];
+    return setEmojiInput(meaning);
+  }
+
   return (
     <div className="App">
       <h1>Emoji Interpreter</h1>
       <input onChange={onEmojiHandler}></input>
       <h2>{emojiInput}</h2>
+      <h3>Emojis we have</h3>
+      <h2>
+        {emojiWeHave.map(function (emoji) {
+          return (
+            <span
+              onClick={() => onEmojiClickHandler(emoji)}
+              style={{
+                fontSize: "1.5rem",
+                padding: "0.26rem",
+                cursor: "pointer"
+              }}
+              key={emoji}
+            >
+              {emoji}
+            </span>
+          );
+        })}
+      </h2>
     </div>
   );
 }
